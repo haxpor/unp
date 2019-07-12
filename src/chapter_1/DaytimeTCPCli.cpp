@@ -1,3 +1,8 @@
+/*
+====================
+Daytime client specifically works with IPV4.
+====================
+*/
 #include "unp.h"
 
 int main( int argc, char **argv ) {
