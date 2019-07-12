@@ -277,5 +277,8 @@ message(STATUS "CPU_VENDOR_OS = '${CPU_VENDOR_OS}'")
 
 # Build upon configured build options at the top
 if (BUILD_CH1_DAYTIMECLIENT)
+    message(STATUS "Set to build Chapter 1 - Daytime Client")
     add_executable("ch1_daytimeclient" "src/chapter_1/DaytimeClient.cpp")    
+else()
+    message(STATUS "Not build Chapter 1 - Daytime Client")
 endif()
