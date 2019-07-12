@@ -275,10 +275,15 @@ configure_file (
 
 message(STATUS "CPU_VENDOR_OS = '${CPU_VENDOR_OS}'")
 
+# Build common shared code as static library
+set(UNPCOMMON_LIB "unpcommon")
+add_library(${UNPCOMMON_LIB} STATIC "src/lib/error.cpp")
+
 # Build upon configured build options at the top
 if (BUILD_CH1_DAYTIMECLIENT)
     message(STATUS "Set to build Chapter 1 - Daytime Client")
     add_executable("ch1_daytimeclient" "src/chapter_1/DaytimeClient.cpp")    
+    target_link_libraries("ch1_daytimeclient" ${UNPCOMMON_LIB})
 else()
     message(STATUS "Not build Chapter 1 - Daytime Client")
 endif()

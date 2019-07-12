@@ -1,16 +1,20 @@
+/*
+====================
+error.h should not be included individually.
+Just include unp.h instead.
+====================
+*/
+
 #ifndef __error_h
 #define __error_h
 
-#include "unp.h"
+#include "unp_wrapped.h"
 #include <stdarg.h>       /* ANSI C header file */
 #include <syslog.h>       /* for syslog() */
 
 namespace unp {
-public:
     /* set nonzero by daemon_init() in chapter 13*/
-    static              int daemonProc = 1;       // TODO: remove initial assignment later
-                                                   // daemon_init() will set its value to 1 to let
-                                                   // error functions know they are ready to do sys_log()
+    extern              int daemonProc;
 
     /**
      * Log with fmt text, then return.
@@ -53,9 +57,11 @@ public:
      */
     void                ErrorQuit( const char *fmt, ... );
 
-private:
     /**
      * Work function for error handling.
+     *
+     * Technical Note:
+     *  Make this function `static` to make it thread-safe. It will be available on each translation unit.
      *
      * \param errnoFlag set to 1 to indicate it related to system call, otherwise non-related system call
      * \param level error log level
@@ -73,7 +79,7 @@ inline void unp::ErrorRet( const char *fmt, ... ) {
     va_end( ap );
 }
 
-inline void ErrorSys( const char *fmt, ... ) {
+inline void unp::ErrorSys( const char *fmt, ... ) {
     va_list ap;
 
     va_start( ap, fmt );
@@ -82,7 +88,7 @@ inline void ErrorSys( const char *fmt, ... ) {
     exit( 1 );
 }
 
-inline void ErrorDump( const char *fmt, ... ) {
+inline void unp::ErrorDump( const char *fmt, ... ) {
     va_list ap;
 
     va_start( ap, fmt );
@@ -92,7 +98,7 @@ inline void ErrorDump( const char *fmt, ... ) {
     exit(1);            // shouldn't get here
 }
 
-inline void ErrorMsg( const char *fmt, ... ) {
+inline void unp::ErrorMsg( const char *fmt, ... ) {
     va_list ap;
 
     va_start( ap, fmt );
@@ -100,7 +106,7 @@ inline void ErrorMsg( const char *fmt, ... ) {
     va_end( ap );
 }
 
-inline void ErrorQuit( const char *fmt, ... ) {
+inline void unp::ErrorQuit( const char *fmt, ... ) {
     va_list ap;
 
     va_start( ap, fmt );
@@ -109,7 +115,7 @@ inline void ErrorQuit( const char *fmt, ... ) {
     exit( 1 );
 }
 
-inline static void ErrorDoIt( int errnoFlag, int level, const char *fmt, va_list ap ) {
+inline void unp::ErrorDoIt( int errnoFlag, int level, const char *fmt, va_list ap ) {
     int errnoSave, n;
     char buf[MAXLINE + 1];
 
