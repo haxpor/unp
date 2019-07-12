@@ -7,12 +7,12 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")        # manually set compi
                                                             # for CMAKE_CXX_STANDARD 11, it use -std=gnu++11
 set(CMAKE_CXX_COMPILER /usr/bin/g++)                        # force to use g++, by default as tested on Linux
 
-include(CheckFunctionExists)
-include(CheckSymbolExists)
-include(CheckIncludeFileCXX)
-include(CheckCXXSourceCompiles)
-include(CheckStructHasMember)
-include(CheckTypeSize)
+include(CheckFunctionExists)            # for c (still ok, see check_fs's note below)
+include(CheckCXXSymbolExists)           # for c++ via check_cxx_symbol_exists()
+include(CheckIncludeFileCXX)            # for c++
+include(CheckCXXSourceCompiles)         # for c++
+include(CheckStructHasMember)           # for c++ via LANGUAGE
+include(CheckTypeSize)                  # for c++ via LANGUAGE
 
 include_directories("${PROJECT_SOURCE_DIR}/include")
 include_directories("${PROJECT_BINARY_DIR}/include")
@@ -43,6 +43,8 @@ macro (check_lib libname)
 endmacro (check_lib)
 
 # macro checking for function symbol
+# note: check in c function, there's no this same functionality for c++. Anyway it should be ok,
+# as i.e. cstdio style header file in include just wrap and include normal c header file i.e. stdio.h.
 macro (check_fs fname)
   string(TOUPPER ${fname} UPPER_STR)
   check_function_exists(${fname} HAVE_${UPPER_STR})
@@ -51,7 +53,7 @@ endmacro (check_fs)
 # macro checking for function prototype
 macro (check_fp fname header)
   string(TOUPPER ${fname} UPPER_STR)
-  check_symbol_exists(${fname} "${header}" HAVE_${UPPER_STR}_PROTO)
+  check_cxx_symbol_exists(${fname} "${header}" HAVE_${UPPER_STR}_PROTO)
 endmacro (check_fp)
 
 # macro checking for struct availability from within header file
@@ -113,8 +115,8 @@ check_exists(/dev/streams/xtiso/tcp)
 check_exists(/dev/tcp)
 check_exists(/dev/xti/tcp)
 
-check_header(errno.h)
-check_header(fcntl.h)
+check_header("cerrno")
+check_header("fcntl.h")
 check_fs(getaddrinfo)
 check_fp(getaddrinfo "netdb.h")
 check_fs(gethostbyname2)
@@ -155,15 +157,16 @@ check_fp(pselect "sys/select.h")
 check_header("pthread.h")
 check_header("signal.h")
 check_fs(snprintf)
-check_fp(snprintf "stdio.h")
+check_fp(snprintf "cstdio")
 check_structh("sockaddr_dl" "net/if_dl.h")
 check_struct_elem(sockaddr sa_len "sys/socket.h") # FIXME
 check_fs(sockatmark)
 check_fp(sockatmark "sys/socket.h")
-check_header("stdio.h")
-check_header("stdlib.h")
+check_header("cstdio")
+check_header("cstdlib")       # in case of potential usage of qsort() which is much faster
+                                # it's reason why we opt to include c++ header files which wrap normal c header files
 check_header("strings.h")
-check_header("string.h")
+check_header("cstring")
 check_header("stropts.h")
 check_struct_elem(ifreq ifr_mtu "net/if.h") # FIXME
 check_structh("sockaddr_storage" "sys/socket.h") # FIXME
@@ -180,8 +183,8 @@ check_header("sys/types.h")
 check_header("sys/uio.h")
 check_header("sys/un.h")
 check_header("sys/wait.h")
-check_structh("timespec" "time.h")
-check_header("time.h")
+check_structh("timespec" "ctime")
+check_header("ctime")
 check_header("unistd.h")
 check_fs(vsnprintf)
 check_header("xti.h")
@@ -227,7 +230,7 @@ endif()
 # get size of sa_family field in sockaddr structure
 # if not exist, then undefine it
 set(CMAKE_EXTRA_INCLUDE_FILES "sys/socket.h")
-check_type_size("((struct sockaddr*)0)->sa_family" SA_FAMILY_SIZE)
+check_type_size("((struct sockaddr*)0)->sa_family" SA_FAMILY_SIZE LANGUAGE CXX)
 if (${SA_FAMILY_SIZE} STREQUAL "" AND ${SA_FAMILY_SIZE} STREQUAL "0")
   message(WARNING "Not found sa_family field in struct sockaddr")
   unset(SA_FAMILY_T)
@@ -239,11 +242,11 @@ endif()
 # check if all ANSI C header files are available
 # from https://www.gnu.org/software/autoconf/manual/autoconf-2.67/html_node/Particular-Headers.html,
 # we will check for stdlib.h, stdarg.h, string.h, and float.h
-check_header("stdlib.h")
-check_header("stdarg.h")
-check_header("string.h")
-check_header("float.h")
-if (HAVE_STDLIB_H AND HAVE_STDARG_H AND HAVE_STRING_H AND HAVE_FLOAT_H)
+check_header("cstdlib")
+check_header("cstdarg")
+check_header("cstring")
+check_header("cfloat")
+if (HAVE_CSTDLIB AND HAVE_CSTDARG AND HAVE_CSTRING AND HAVE_CFLOAT)
   message(STATUS "Found all ANSI C header files")
   set(STDC_HEADERS 1)
 else()

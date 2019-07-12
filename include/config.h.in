@@ -21,8 +21,8 @@
 
 #cmakedefine HAVE_DEV 1
 
-/* Define if you have the <errno.h> header file */
-#cmakedefine HAVE_ERRNO_H 1
+/* Define if you have the <cerrno> header file */
+#cmakedefine HAVE_ERRNO 1
 
 /* Define if you have the <fcntl.h> header file */
 #cmakedefine HAVE_FCNTL_H 1
@@ -162,17 +162,23 @@
 /* Define if sockatmark prototype is in <sys/socket.h> */
 #cmakedefine HAVE_SOCKATMARK_PROTO 1
 
-/* Define if you have the <stdio.h> header file */
-#cmakedefine HAVE_STDIO_H 1
+/* Define if you have the <cstdio> header file */
+#cmakedefine HAVE_CSTDIO 1
 
-/* Define if you have the <stdlib.h> header file */
-#cmakedefine HAVE_STDLIB_H 1
+/* Define if you have the <cstdlib> header file */
+#cmakedefine HAVE_CSTDLIB 1
+
+/* Define if you have the <cstdarg> header file */
+#cmakedefine HAVE_CSTDARG 1
+
+/* Define if you have the <cfloat> header file */
+#cmakedefine HAVE_CFLOAT 1
 
 /* Define if you have the <strings.h> header file */
 #cmakedefine HAVE_STRINGS_H 1
 
-/* Define if you have the <string.h> header file */
-#cmakedefine HAVE_STRING_H 1
+/* Define if you have the <cstring> header file */
+#cmakedefine HAVE_CSTRING 1
 
 /* Define if you have the <stropts.h> header file */
 #cmakedefine HAVE_STROPTS_H 1
@@ -225,8 +231,8 @@
 /* Define if <time.h> defines struct timespec */
 #cmakedefine HAVE_TIMESPEC_STRUCT 1
 
-/* Define if you have the <time.h> header file */
-#cmakedefine HAVE_TIME_H 1
+/* Define if you have the <ctime> header file */
+#cmakedefine HAVE_CTIME 1
 
 /* Define if you have the <unistd.h> header file */
 #cmakedefine HAVE_UNISTD_H 1

@@ -4,19 +4,22 @@
 /* generated config.h header from build system after running CMake */
 #include "config.h"
 
+/* TODO: Better guard check these headers if they are not available on the system, by making use
+ *  from generated config.h.
+ */
 #include <sys/types.h>        /* basic system data types */
 #include <sys/socket.h>       /* basic socket definitions */
 #include <sys/time.h>         /* timeval{} for select() */
-#include <time.h>             /* timespec{} for pselect() */
+#include <ctime>             /* timespec{} for pselect() */
 #include <netinet/in.h>       /* sockaddr_in{} and other Internet defns */
 #include <arpa/inet.h>        /* inet(3) functions */
-#include <errno.h>
+#include <cerrno>
 #include <fcntl.h>            /* for nonblocking */
 #include <netdb.h>
 #include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <sys/stat.h>         /* for S_xxx file mode constants */
 #include <sys/uio.h>          /* for iovec{} and readv/writev */
 #include <unistd.h>

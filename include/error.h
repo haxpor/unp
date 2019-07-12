@@ -9,7 +9,7 @@ Just include unp.h instead.
 #define __error_h
 
 #include "unp_wrapped.h"
-#include <stdarg.h>       /* ANSI C header file */
+#include <cstdarg>       /* ANSI C header file */
 #include <syslog.h>       /* for syslog() */
 
 namespace unp {
@@ -120,25 +120,21 @@ inline void unp::ErrorDoIt( int errnoFlag, int level, const char *fmt, va_list a
     char buf[MAXLINE + 1];
 
     errnoSave = errno;
-#ifdef HAVE_VSNPRINTF
-    vsnprintf( buf, MAXLINE, fmt, ap );
-#else
-    vsprintf( buf, fmt, ap );
-#endif
+    std::vsnprintf( buf, MAXLINE, fmt, ap );     // don't make sense to still check if snprintf is available
 
     n = strlen( buf );
     // get error string if it related to system call error
     if ( errnoFlag ) {
-        snprintf( buf + n, MAXLINE - n + 1, ": %s", strerror( errnoSave ) );
+        std::snprintf( buf + n, MAXLINE - n + 1, ": %s", strerror( errnoSave ) );
     }
-    strncat( buf, "\n", strlen( buf ) );
+    std::strncat( buf, "\n", strlen( buf ) );
 
     if ( daemonProc ) {
-        syslog( level, buf );
+        vsyslog( level, buf, ap );
     } else {
-        fflush( stdout );
-        fputs( buf, stderr );
-        fflush( stderr );
+        std::fflush( stdout );
+        std::fputs( buf, stderr );
+        std::fflush( stderr );
     }
 }
 
