@@ -22,6 +22,9 @@ cmake_host_system_information(RESULT OS_NAME_ QUERY OS_NAME)
 
 set(CPU_VENDOR_OS "\"${CPU_NAME_}_${CMAKE_SYSTEM_PROCESSOR}_${OS_NAME_}\"")
 
+# Build options available to be configured
+option(BUILD_CH1_DAYTIMECLIENT "Build Chapter 1 - Daytime Client" ON)
+
 # check for following cases
 # - header file exists
 # - struct definition exists
@@ -271,3 +274,8 @@ configure_file (
   )
 
 message(STATUS "CPU_VENDOR_OS = '${CPU_VENDOR_OS}'")
+
+# Build upon configured build options at the top
+if (BUILD_CH1_DAYTIMECLIENT)
+    add_executable("ch1_daytimeclient" "src/chapter_1/DaytimeClient.cpp")    
+endif()
