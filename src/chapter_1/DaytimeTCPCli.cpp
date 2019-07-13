@@ -16,7 +16,7 @@ int main( int argc, char **argv ) {
     struct sockaddr_in servaddr;
 
     if ( argc != 2 ) {
-        unp::ErrorQuit( "Usage: ch1_daytimeclient <IPAddress>" ); 
+        unp::ErrorQuit( "Usage: ch1_daytimetcpcli <IPAddress>" ); 
     }
 
     if ( (sockfd = socket( AF_INET, SOCK_STREAM, 0 )) < 0 ) {
