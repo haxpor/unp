@@ -221,6 +221,4 @@ struct timespec {
 };
 #endif
 
-#include "error.h"
-
 #endif /* __UNP_WRAPPED_h */

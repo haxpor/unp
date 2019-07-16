@@ -281,7 +281,7 @@ message(STATUS "CPU_VENDOR_OS = '${CPU_VENDOR_OS}'")
 
 # Build common shared code as static library
 set(UNPCOMMON_LIB "unpcommon")
-add_library(${UNPCOMMON_LIB} STATIC "src/lib/error.cpp")
+add_library(${UNPCOMMON_LIB} STATIC "src/lib/Error.cpp")
 
 # Build upon configured build options at the top
 if (BUILD_CH1_DAYTIMECLI)
