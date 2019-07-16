@@ -5,8 +5,8 @@ Just include unp.h instead.
 ====================
 */
 
-#ifndef __error_h
-#define __error_h
+#ifndef __ERROR_H_
+#define __ERROR_H_
 
 #include "unp_wrapped.h"
 #include <cstdarg>       /* ANSI C header file */
