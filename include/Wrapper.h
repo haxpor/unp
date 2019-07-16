@@ -36,12 +36,12 @@ namespace unp {
     /**
      * Write to a file descriptor.
      */
-    ssize_t     Write(int fd, const void *buf, const size_t count, const bool manualErrorHandler=false); 
+    ssize_t     Write(const int fd, const void *buf, const size_t count, const bool manualErrorHandler=false); 
 
     /**
      * Close a file descriptro.
      */
-    int         Close(int fd, const bool manualErrorHandler=false);
+    int         Close(const int fd, const bool manualErrorHandler=false);
 };
 
 inline int unp::Socket(const int domain, const int type, const int protocol, const bool manualErrorHandler) {
@@ -88,7 +88,7 @@ inline int unp::Accept(const int sockfd, SA *addr, socklen_t *addrlen, const boo
     return connfd;
 }
 
-inline ssize_t unp::Write(int fd, const void *buf, const size_t count, const bool manualErrorHandler) {
+inline ssize_t unp::Write(const int fd, const void *buf, const size_t count, const bool manualErrorHandler) {
     ssize_t s = write(fd, buf, count);
     if (s < 0) {
         if (!manualErrorHandler) {
@@ -99,7 +99,7 @@ inline ssize_t unp::Write(int fd, const void *buf, const size_t count, const boo
     return s;
 }
 
-inline int unp::Close(int fd, const bool manualErrorHandler) {
+inline int unp::Close(const int fd, const bool manualErrorHandler) {
     int ret = close(fd);
     if (ret < 0) {
         if (!manualErrorHandler) {
