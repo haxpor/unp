@@ -19,6 +19,7 @@
 #include <fcntl.h>            /* for nonblocking */
 #include <netdb.h>
 #include <signal.h>
+#include <iostream>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -202,9 +203,6 @@ struct sockaddr_storage {
 typedef void Sigfunc (int);   /* for signal handlers, see https://stackoverflow.com/a/17247663/571227
                                  to understand this definition. */
 
-#define min(a,b)    ((a) < (b) ? (a) : (b))
-#define max(a,b)    ((a) > (b) ? (a) : (b))
-
 /* FIXME: Check back later to include ../lib/addrinfo.h as seen in textbook */
 
 #ifndef HAVE_IF_NAMEINDEX_STRUCT
@@ -220,5 +218,7 @@ struct timespec {
   long    tv_nsec;              /* and nanoseconds */
 };
 #endif
+
+#include <cmath>
 
 #endif /* __UNP_WRAPPED_h */
