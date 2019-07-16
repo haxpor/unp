@@ -127,7 +127,7 @@ inline void unp::ErrorDoIt( int errnoFlag, int level, const char *fmt, va_list a
     if ( errnoFlag ) {
         std::snprintf( buf + n, MAXLINE - n + 1, ": %s", strerror( errnoSave ) );
     }
-    std::strncat( buf, "\n", strlen( buf ) );
+    std::strncat( buf, "\n", 1 );
 
     if ( daemonProc ) {
         vsyslog( level, buf, ap );
