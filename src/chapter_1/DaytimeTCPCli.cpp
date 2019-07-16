@@ -6,10 +6,6 @@ Daytime client specifically works with IPV4.
 #include "unp.h"
 
 int main( int argc, char **argv ) {
-    // this program is not daemon
-    // set to 0 to let it know
-    unp::daemonProc = 0;
-
     int sockfd, n;
     char recvline[MAXLINE + 1] = {0};
 
