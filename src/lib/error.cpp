@@ -1,5 +1,5 @@
 #include "error.h"
 
-// initially defined to be non-zero for the program to be built to be daemon based
-// thus logging will go through syslog (/var/log/system can be checked for error message)
-int unp::daemonProc = 1;
+// initially defined to be zero for the program to be built to be non-daemon based
+// In case of daemon process, logging will go through syslog (/var/log/system)
+int unp::daemonProc = 0;

@@ -7,7 +7,9 @@
 /* TODO: Better guard check these headers if they are not available on the system, by making use
  *  from generated config.h.
  */
-#include <sys/types.h>        /* basic system data types */
+#include <sys/types.h>        /* basic system data types
+                                 man page of relevant function suggests to include this to be
+                                 portable for BSD systems */
 #include <sys/socket.h>       /* basic socket definitions */
 #include <sys/time.h>         /* timeval{} for select() */
 #include <ctime>             /* timespec{} for pselect() */
