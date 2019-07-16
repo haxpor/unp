@@ -1,5 +1,5 @@
 # unp
-Unix Network Programming learning repository following along from Unix Network Programming Volume 1, 3rd Edition but with cmake, modified and improvements on top
+Unix Network Programming learning repository following along from Unix Network Programming Volume 1, 3rd Edition but with reasonable best effort migration to C++11, cmake, modified and improvements on top
 
 # System
 
