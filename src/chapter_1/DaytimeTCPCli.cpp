@@ -43,16 +43,7 @@ int main( int argc, char **argv ) {
     while ( (n = read( sockfd, recvline, MAXLINE )) > 0 ) {
         recvline[n] = 0;                // set null-terminated to read line
 
-        /* trim newline at the beginning */
-        int offset = 0;
-        if ( recvline[0] == '\n' ) {
-            offset = 1;
-        } else if ( strlen( recvline ) > 2 &&
-                    recvline[0] == '\r' && recvline[1] == '\n' ) {
-            offset = 2;
-        }
-
-        if ( std::fputs( recvline + offset, stdout ) == EOF ) {
+        if ( std::fputs( recvline, stdout ) == EOF ) {
             unp::ErrorSys( "fputs error" );
         }
     }
