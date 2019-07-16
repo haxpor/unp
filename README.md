@@ -5,6 +5,16 @@ Unix Network Programming learning repository following along from Unix Network P
 
 The system used to work and run this project is Ubuntu 18.04 64-bit 4.18.0-21.
 
+It is not tested on other platforms, but technically should be portable.
+
+# Build
+
+* create a new directory `build`
+* `cmake ..`
+* `make -j4`
+
+It will build all sample programs in each chapters as executable file. The common code is produced as static library.
+
 # Pattern
 
 ## Source File Name
