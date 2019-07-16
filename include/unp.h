@@ -3,5 +3,6 @@
 
 #include "unp_wrapped.h"
 #include "Error.h"
+#include "Wrapper.h"
 
 #endif /* __UNP_H_ */
