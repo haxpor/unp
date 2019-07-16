@@ -31,8 +31,8 @@ int main(int argc, char **argv) {
 
         ticks = std::time(nullptr);
         buff << std::ctime(&ticks) << "\r\n";
-
-        unp::Write(connfd, buff.str().c_str(), buff.str().length());
+        const std::string& tmpBuff = buff.str();        // remember: str() creates a temporary object
+        unp::Write(connfd, tmpBuff.c_str(), tmpBuff.length());
         unp::Close(connfd);
     }
 
