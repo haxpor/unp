@@ -40,5 +40,5 @@ Since then, I never finish the entire book, probably just a chapter or two then 
 Now it's time to actually make use of it (firstly aim to reach chater 11).
 
 # License
-This project is licensed under MIT.
+This project is licensed under [MIT](https://github.com/haxpor/unp/blob/master/LICENSE).
 
