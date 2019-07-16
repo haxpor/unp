@@ -25,6 +25,7 @@ set(CPU_VENDOR_OS "\"${CPU_NAME_}_${CMAKE_SYSTEM_PROCESSOR}_${OS_NAME_}\"")
 # Build options available to be configured
 option(BUILD_CH1_DAYTIMECLI         "Build Chapter 1 - Daytime Client" ON)
 option(BUILD_CH1_DAYTIMETCPCLIV6    "Build Chapter 1 - Daytime Client TCPv6" ON)
+option(BUILD_CH1_DAYTIMETCPSRV      "Build Chapter 1 - Daytime Server" ON)
 
 # check for following cases
 # - header file exists
@@ -292,4 +293,9 @@ endif()
 if (BUILD_CH1_DAYTIMETCPCLIV6)
     add_executable("ch1_daytimetcpcliv6" "src/chapter_1/DaytimeTCPCliv6.cpp")
     target_link_libraries("ch1_daytimetcpcliv6" ${UNPCOMMON_LIB})
+endif()
+
+if (BUILD_CH1_DAYTIMETCPSRV)
+    add_executable("ch1_daytimetcpsrv" "src/chapter_1/DaytimeTCPSrv.cpp")
+    target_link_libraries("ch1_daytimetcpsrv" ${UNPCOMMON_LIB})
 endif()
